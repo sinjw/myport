@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  list-style: none;
+  text-decoration: none;
+}
+.privacy-screen {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  right: 100%;
+  background-color: #eef8ff;
+  z-index: 20;
+}
+.privacy-screen2 {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  right: 100%;
+
+  background-color: #c5d6fd;
+  z-index: 19;
+}
+#tsparticles {
+  z-index: 1;
+}
