@@ -83,7 +83,11 @@ export const PortFolioModal = ({ onClose, onModal }: StockHolmModalProps) => {
           onClick={handleClickSetting}
           className="bx bx-dots-vertical-rounded"
         ></BxDot>
-        <GitHubButton etc={Etc}>
+        <GitHubButton
+          etc={Etc}
+          href="https://github.com/sinjw/myport.git"
+          target="_blank"
+        >
           <i className="bx bxl-github"></i>
         </GitHubButton>
       </ModalCloseButton>
@@ -127,7 +131,11 @@ export const MyMemoAppModal = ({ onClose, onModal }: StockHolmModalProps) => {
           onClick={handleClickSetting}
           className="bx bx-dots-vertical-rounded"
         ></BxDot>
-        <GitHubButton etc={Etc}>
+        <GitHubButton
+          etc={Etc}
+          href="https://github.com/sinjw/MemoApp.git"
+          target="_blank"
+        >
           <i className="bx bxl-github"></i>
         </GitHubButton>
       </ModalCloseButton>
