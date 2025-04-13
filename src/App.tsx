@@ -56,7 +56,7 @@ function App() {
           initial="initial"
           animate="animate"
           exit="exit"
-          transition={{ delay: 0, duration: 0.4, ease: "easeInOut" }}
+          transition={{ delay: 0.2, duration: 0.4, ease: "easeInOut" }}
           className="privacy-screen"
         />
         <motion.div
@@ -64,7 +64,7 @@ function App() {
           initial="initial"
           animate="animate"
           exit="exit"
-          transition={{ delay: 0, duration: 0.7, ease: "easeInOut" }}
+          transition={{ delay: 0.3, duration: 0.7, ease: "easeInOut" }}
           className="privacy-screen2"
         />
         {React.cloneElement(element, { key: location.pathname })}
