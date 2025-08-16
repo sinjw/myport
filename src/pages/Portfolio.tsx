@@ -3,7 +3,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { Home, User, Briefcase, Mail } from "lucide-react";
+
 import { AnimatedProjectModal } from "../components/portfolioModal/Modal";
 
 const mainColor = "rgb(123, 154, 204)";
@@ -35,50 +35,6 @@ const Circle = styled(motion.div)<{
   top: ${(props) => props.top};
   left: ${(props) => props.left};
   opacity: ${(props) => props.opacity};
-`;
-
-const Header = styled.header`
-  position: absolute;
-  top: 32px;
-  left: 32px;
-  font-size: 18px;
-  font-weight: 600;
-  color: #1e293b;
-  z-index: 10;
-`;
-
-const Navigation = styled.nav`
-  position: fixed;
-  right: 32px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  z-index: 20;
-`;
-
-const NavButton = styled(motion.button)<{ active?: boolean }>`
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: none;
-  background: ${(props) =>
-    props.active ? mainColor : "rgba(255, 255, 255, 0.9)"};
-  color: ${(props) => (props.active ? "white" : "#64748b")};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: ${mainColor};
-    color: white;
-    transform: scale(1.1);
-  }
 `;
 
 const MainContent = styled.div`
@@ -246,11 +202,6 @@ const projects = [
     ],
   },
 ];
-
-interface ProjectPageProps {
-  currentPage: string;
-  onPageChange: (page: string) => void;
-}
 
 export default function ProjectPage({}) {
   const [selectedProject, setSelectedProject] = useState<

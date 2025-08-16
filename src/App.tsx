@@ -67,7 +67,7 @@ function App() {
           transition={{ delay: 0.3, duration: 0.7, ease: "easeInOut" }}
           className="privacy-screen2"
         />
-        {React.cloneElement(element, { key: location.pathname })}
+        {element && React.cloneElement(element, { key: location.pathname })}
       </AnimatePresence>
     </React.Fragment>
   );
