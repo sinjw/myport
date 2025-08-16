@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation, useRoutes } from "react-router-dom";
 import { MainPage } from "./pages/MainPage.tsx";
-import { AboutMe } from "./pages/AboutMe.tsx";
+import AboutMe from "./pages/AboutMe.tsx";
 import PortFolio from "./pages/Portfolio.tsx";
 import { Navigate } from "./components/navigate.tsx";
 import { motion } from "framer-motion";
@@ -25,7 +25,7 @@ function App() {
       width: ["0%", "100%"],
     },
   };
-  const element: any = useRoutes([
+  const element: React.ReactElement | null = useRoutes([
     {
       path: "/",
       element: <MainPage />,

@@ -1,569 +1,493 @@
+import { useState } from "react";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
-import proFile from "../assets/PF.png";
-import React from "react";
-import { AboutMeText } from "../components/aboutTabs/aboutMeText";
-interface TechProps {
-  bgColor: string;
-}
-export const AboutMe = () => {
-  const InfoMenu = [
-    { id: 1, tabs: "Skills" },
-    { id: 2, tabs: "Experience" },
-  ];
+import { motion, AnimatePresence } from "framer-motion";
+import { MessageCircle, HelpCircle } from "lucide-react";
+import profileImage from "../assets/ProfileImage.png";
+const mainColor = "rgb(123, 154, 204)";
 
-  const [Animate, setAnimate] = useState(false);
-  const [tabAbout, setTabAbout] = useState<number>(1);
-  useEffect(() => {
-    setTimeout(() => setAnimate(true), 500);
-    setAnimate(false);
-  }, []);
+const Container = styled.div`
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  position: relative;
+  overflow: hidden;
+`;
 
-  const [tabButton, setTabButton] = useState<number>(1);
-
-  const handleOnClick = (n: number) => {
-    setTabButton(n);
-  };
-  const handleClickAbout = () => {
-    setTabAbout(1);
-  };
-  const handleClickQA = () => {
-    setTabAbout(2);
-  };
-  const techs = [
-    { name: "HTML5", bgColor: "#f16529" },
-    { name: "CSS", bgColor: "#2965f1" },
-    { name: "JavaScript", bgColor: "#f7df1e" },
-    { name: "TypeScript", bgColor: "#3178c6" },
-    { name: " React", bgColor: "#61DAFB" },
-    { name: "Styled-Component", bgColor: "#DB7093" },
-    { name: "Expo", bgColor: "#339999" },
-    { name: "Figma", bgColor: "#F24E1E" },
-    { name: "PhotoShop", bgColor: "#31A8FF" },
-    { name: "illerstrator", bgColor: "#FF9A00" },
-  ];
-  return (
-    <>
-      <AboutContainer>
-        <IntroduceContainer>
-          <NameText animate={Animate}>
-            <ProFileImg>
-              <p
-                style={{
-                  marginBottom: "-9px",
-                  fontFamily: "IBM Plex Sans KRsans-serif",
-                  fontSize: "35px",
-                  fontWeight: "bold",
-                  color: "#777",
-                  marginLeft: "-17px",
-                }}
-              >
-                PROFILE
-              </p>
-              <CircleProfile src={proFile} />
-              <p
-                style={{
-                  fontSize: "18px",
-                  marginLeft: "0px",
-                  fontFamily: "Caveat",
-                }}
-              >
-                Front-end developer
-              </p>
-            </ProFileImg>
-            <div style={{ display: "flex", alignItems: "center" }}></div>
-          </NameText>
-          <RightContents>
-            <AboutButton onClick={handleClickAbout} tababout={tabAbout}>
-              <i
-                style={{
-                  fontSize: "40px",
-                  color: "white",
-                  marginLeft: "10px",
-                  marginTop: "3px",
-                }}
-                className="bx bx-message-square-dots"
-              ></i>
-            </AboutButton>
-            <QuestionButton onClick={handleClickQA} tababout={tabAbout}>
-              <i
-                style={{
-                  fontSize: "40px",
-                  color: "white",
-                  marginLeft: "10px",
-                  marginTop: "3px",
-                }}
-                className="bx bx-question-mark"
-              ></i>
-            </QuestionButton>
-            {tabAbout === 1 && (
-              <RightBG>
-                <Introduce animate={Animate}>
-                  <AboutTitle>Introduce</AboutTitle>
-                  <IntroText
-                    className={`${tabAbout === 1 ? "onTab" : "outTab"}`}
-                  >
-                    안녕하세요, 프론트엔드 개발자
-                    <span style={{ fontSize: "30px", color: "#fff" }}>
-                      신중원
-                    </span>
-                    입니다. <br />
-                    아직 배울 것이 많지만, 새로운 도전을 즐기고 끊임없이
-                    성장하는 개발자가 되기 위해 노력하고 있습니다.
-                    <br />
-                  </IntroText>
-                  <br />
-                  <IntroText
-                    className={`${tabAbout === 1 ? "onTab" : "outTab"}`}
-                  >
-                    저는 "기회는 준비된 사람이 잡는다"라는 말을 좋아합니다.
-                    기회는 우연히 찾아오는 것이 아니라, 철저한 준비와 꾸준한
-                    노력 속에서 비로소 내 것이 된다고 믿기 때문입니다. 언제든
-                    기회를 잡을 수 있도록 배움을 멈추지 않고, 경험을 쌓아가며,
-                    발전하는 개발자가 되겠습니다.
-                  </IntroText>
-                </Introduce>
-              </RightBG>
-            )}
-            {tabAbout === 2 && (
-              <RightBG>
-                <Introduce animate={Animate}>
-                  <AboutTitle>ABOUT ME</AboutTitle>
-                  <AboutText>
-                    <AboutMeText />
-                  </AboutText>
-                </Introduce>
-              </RightBG>
-            )}
-          </RightContents>
-          <TabContianer>
-            <TabBox>
-              {InfoMenu.map((el) => (
-                <React.Fragment key={el.id}>
-                  <InfoTab
-                    tabButton={tabButton}
-                    className={`${tabButton === el.id ? "on" : "off"}`}
-                    onClick={() => handleOnClick(el.id)}
-                  >
-                    {el.tabs}
-                  </InfoTab>
-                </React.Fragment>
-              ))}
-            </TabBox>
-            <TabContent>
-              {tabButton === 1 && (
-                <>
-                  <div style={{ display: "flex", flexWrap: "wrap" }}>
-                    {techs.map((el, index) => (
-                      <TechName key={index} bgColor={el.bgColor}>
-                        {el.name}
-                      </TechName>
-                    ))}
-                  </div>
-                </>
-              )}
-              {tabButton === 2 && (
-                <>
-                  <ExpText>
-                    <span
-                      style={{
-                        backgroundColor: "#333",
-                        color: "white",
-                        fontSize: "13px",
-                        borderRadius: "3px",
-                        padding: "2px 6px",
-                        margin: "3px 3px",
-                      }}
-                    >
-                      EZEN
-                    </span>
-                    <p style={{ fontWeight: "500", display: "inline" }}>
-                      2021~2022
-                    </p>
-                  </ExpText>
-                  <ExpText>- 코딩을 활용한 웹디자인 과정 수료</ExpText>
-                  <ExpText></ExpText>
-                  <ExpText>- 사원으로 근무</ExpText>
-
-                  <ExpText>
-                    <span
-                      style={{
-                        backgroundColor: "#333",
-                        color: "white",
-                        fontSize: "13px",
-                        borderRadius: "3px",
-                        padding: "2px 6px",
-                        margin: "3px 3px",
-                      }}
-                    >
-                      CodeStates
-                    </span>{" "}
-                    <p style={{ fontWeight: "500", display: "inline" }}>
-                      2023~2024
-                    </p>
-                    <br />- 프론트엔드 부트캠프 45기 수료{" "}
-                  </ExpText>
-                  <ExpText>
-                    <span
-                      style={{
-                        backgroundColor: "#333",
-                        color: "white",
-                        fontSize: "13px",
-                        borderRadius: "3px",
-                        padding: "2px 6px",
-                        margin: "3px 3px",
-                      }}
-                    >
-                      SpartaCodingClub
-                    </span>{" "}
-                    <br />- Expo를활용한 앱개발 기초 수료
-                  </ExpText>
-                </>
-              )}
-              {tabButton === 3 && <div>etc.</div>}
-            </TabContent>
-          </TabContianer>
-          <BackgroudText>
-            <p>ABOUT ME </p>
-          </BackgroudText>
-        </IntroduceContainer>
-        <div style={{ height: 100 }}></div>
-      </AboutContainer>
-    </>
-  );
-};
-const BackgroudText = styled.div`
+const FloatingCircles = styled.div`
   position: absolute;
-  top: 60%;
+  inset: 0;
+  pointer-events: none;
+`;
 
+const Circle = styled(motion.div)<{
+  size: number;
+  top: string;
+  left: string;
+  opacity: number;
+}>`
+  position: absolute;
+  width: ${(props) => props.size}px;
+  height: ${(props) => props.size}px;
+  background: ${mainColor};
+  border-radius: 50%;
+  top: ${(props) => props.top};
+  left: ${(props) => props.left};
+  opacity: ${(props) => props.opacity};
+`;
+
+const MainContent = styled.div`
   display: flex;
-  flex-direction: row;
-  flex-wrap: no-wrap;
-  font-size: 150px;
-  font-weight: bold;
-  right: 0;
-  opacity: 0.1;
-  z-index: 1;
+  min-height: 90vh;
+  padding: 32px 32px; // Adjusted padding for header
+  gap: 48px;
+  max-width: 1400px;
+  margin: 0 auto;
 
-  @media (max-width: 500px) {
-    display: none;
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    align-items: center;
+    padding: 80px 16px 32px;
+    gap: 32px;
   }
 `;
-const AboutContainer = styled.div`
-  height: 100vh;
-  overflow-x: hidden;
-  position: relative;
-`;
 
-const RightContents = styled.div`
-  position: relative;
-  width: 80vw;
-  left: 20vw;
-  right: 5vw;
-  @media (max-width: 500px) {
-    position: static;
-
-    height: 100vh;
-    width: 100vw;
-  }
-`;
-const RightBG = styled.div`
-  position: absolute;
-  top: 2.5vh;
-  width: 90%;
-  left: 5vw;
-  right: 5vw;
-  height: 95vh;
-  background-color: rgb(45, 45, 45);
-  opacity: 1;
-  border-radius: 8px 10px;
-  box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.7);
-  @media (max-width: 500px) {
-    width: 100%;
-    height: 100vh;
-    position: static;
-  }
-`;
-const AboutButton = styled.div<{ tababout: number }>`
-  position: absolute;
-  width: 3.5vw;
-  height: 45px;
-  top: 15vh;
-  left: 1.4vw;
-  z-index: 3;
-  border: 1px solid transparent;
-
-  border-radius: 10px 0 0 10px;
-  transition: border 1s;
-  background-color: #ccc;
-
-  transition: all.4s;
-  &:hover {
-    animation: drawBorder 1s forwards;
-  }
-  ${(props) => props.tababout === 1 && `background-color:rgb(45, 45, 45);`}
-
-  @media(max-width:500px) {
-    top: 100px;
-    left: 10px;
-    width: 60px;
-    border-radius: 10px 10px 0 0;
-  }
-`;
-const QuestionButton = styled.div<{ tababout: number }>`
-  position: absolute;
-  transition: all.4s;
-  width: 3.5vw;
-  height: 45px;
-  top: 22vh;
-  left: 1.5vw;
-  z-index: 3;
-  background-color: #ccc;
-
-  border-radius: 10px 0 0 10px;
-
-  ${(props) => props.tababout === 2 && `background-color:rgb(45, 45, 45);`}
-  @media(max-width:500px) {
-    top: 102px;
-    left: 75px;
-    width: 60px;
-    border-radius: 10px 10px 0 0;
-  }
-`;
-const IntroduceContainer = styled.div`
+const LeftPanel = styled(motion.div)`
+  flex: 0 0 350px;
   display: flex;
   flex-direction: column;
-`;
-const AboutTitle = styled.div`
-  margin-top: 20px;
-  margin-left: 5%;
-  margin-bottom: 20px;
-  font-size: 20px;
-  color: rgb(208, 209, 210);
-  font-weight: 800;
-  margin-bottom: 20%;
-  @media (max-width: 500px) {
-    margin-bottom: 20px;
-  }
-`;
-const NameText = styled.div<{ animate: boolean }>`
-  font-size: 30px;
-  position: absolute;
-  left: 5vw;
-  margin-top: 22vh;
-  opacity: 0;
-  transition: all 1s;
-  transform: translateX(-200px);
-  ${(props) =>
-    props.animate &&
-    `
-  transform:translateX(0);
-    opacity:1;
-    `}
-  @media (max-width: 500px) {
-    position: static;
-    margin-top: 147px;
-    text-align: center;
-    ::after {
-      display: none;
-    }
-  }
-`;
-const ProFileImg = styled.div`
-  &::after {
-    content: "";
-    width: 100px;
-    height: 132px;
+  gap: 32px;
 
-    z-index: -1;
-    border: 1px solid#ccc;
-    top: 50px;
-    left: 11px;
-    border-radius: 5px;
-    position: absolute;
-  }
-  @media (max-width: 500px) {
-    display: none;
-  }
-`;
-const CircleProfile = styled.img`
-  transition: all 0.3s;
-  border-radius: 0;
-  border: 1px solid#ccc;
-  border-radius: 5px;
-  @media (max-width: 500px) {
-    display: none;
-  }
-`;
-const InfoTab = styled.div<{ tabButton: number }>`
-  display: flex;
-  font-family: "Noto Sans KR", sans-serif;
-
-  font-weight: bold;
-  font-size: 17px;
-  flex-direction: row;
-  color: #333;
-  position: relative;
-  margin-right: 15px;
-  margin-bottom: 15px;
-  cursor: pointer;
-  &.off {
-    &::after {
-      content: "";
-      position: absolute;
-      width: 1rem;
-      height: 3px;
-      background-color: #333;
-      border-radius: 15px;
-      bottom: -8px;
-      left: 0;
-
-      transition: all 0.4s;
-    }
-    transition: all 0.4s;
-  }
-  &.on {
-    transition: all 0.4s;
-
-    &::after {
-      content: "";
-      position: absolute;
-      transition: all 0.4s;
-      width: 100%;
-      height: 3px;
-      background-color: #333;
-      border-radius: 15px;
-      left: 0;
-      bottom: -8px;
-    }
-  }
-
-  ${(props) =>
-    props.tabButton &&
-    `
-
-  `}
-  @media(max-width:500px) {
-    position: relative;
-  }
-`;
-const ExpText = styled.div`
-  font-size: 15px;
-  font-family: "IBM Plex Sans KR", sans-serif;
-  font-weight: 400;
-`;
-const Introduce = styled.div<{ animate: boolean }>`
-  font-size: 21px;
-  max-width: 90%;
-
-  position: relative;
-  font-family: "Noto Sans KR", sans-serif;
-  font-weight: 400;
-  &::before {
-    content: "";
+  @media (max-width: 1024px) {
+    flex: 1;
     width: 100%;
-    height: 1px;
-    background-color: #ccc;
-    position: absolute;
-    top: 40px;
-    left: 5%;
-  }
-  &::after {
-    content: "";
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background-color: rgb(45, 45, 45);
-    top: 0;
-    left: 0;
-    transform: scaleX(1);
-    transform-origin: 0% 0%;
-    transition: all 1s;
-
-    ${(props) =>
-      props.animate &&
-      `
-      transform: scaleX(0);
-    transform-origin: 0% 0%;
-    `}
-  }
-  @media (max-width: 500px) {
-    position: static;
-    padding: 20px 20px;
-    max-width: 100%;
-
-    margin-left: 0;
+    max-width: 600px;
   }
 `;
-const IntroText = styled.div`
-  transition: all 0.4s;
 
-  opacity: 1;
-  color: rgb(220, 220, 220);
-  position: relative;
-  transition: all 0.4s;
-  margin-left: 5%;
-  font-size: 20px;
+const ProfileSection = styled.div`
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+`;
 
-  color: rgb(199, 199, 199);
-  &::after {
-    width: 16.2rem;
-  }
-  @media (max-width: 500px) {
-    position: static;
-    padding: 20px 20px;
-  }
-`;
-const AboutText = styled.div`
-    transition: all 0.4s;
-    opacity: 1;
-    color: rgb(220, 220, 220);
-    position: relative;
-    transition: all 0.4s;
-    margin-left: 5%;
-    
-  }
-  @media(max-width:500px){
-      margin-top:0px;
-      }
-`;
-const TabContianer = styled.div`
-  position: absolute;
-  left: 3vw;
-  top: 400px;
-  max-width: 20vw;
-
-  @media (max-width: 500px) {
-    margin-left: 30px;
-    max-width: 90%;
-    position: static;
-  }
-`;
-const TabBox = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-const TechName = styled.p<TechProps>`
-  background-color: ${(props) => props.bgColor};
-  background-opacity: 0.2;
-  border-radius: 8px;
-  margin-right: 5px;
+const ProfileTitle = styled.h2`
+  font-size: 32px;
+  font-weight: 300;
+  color: #1e293b;
   margin-bottom: 8px;
-  padding: 2px 7px 2px 7px;
-  font-size: 13px;
-  box-shadow: 1px 3px 3px 1px rgba(0, 0, 0, 0.3);
-  font-family: "IBM Plex Sans KR", sans-serif;
-  font-weight: 400;
-  color: black;
+  font-style: italic;
 `;
-const TabContent = styled.div`
-  max-width: 300px;
-  width: 100%;
-  z-index: 3;
-  @media (max-width: 500px) {
-    width: 100%;
-    max-width: 100%;
 
-    margin: 0 auto;
+const ProfileSubtitle = styled.p`
+  color: #64748b;
+  font-size: 16px;
+  margin-bottom: 24px;
+  font-style: italic;
+`;
+
+const ProfileImageContainer = styled.div`
+  width: 200px;
+  height: 260px;
+  border-radius: 15px;
+  background-image: url(${profileImage});
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat; /* ⬅️ 여기서 설정 */
+  margin: 0 auto 24px;
+  border: 3px solid ${mainColor}30;
+  position: relative;
+  overflow: hidden;
+`;
+
+const TabContainer = styled.div`
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  flex: 1;
+`;
+
+const TabButtons = styled.div`
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+`;
+
+const TabButton = styled(motion.button)<{ active: boolean }>`
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  background: ${(props) => (props.active ? mainColor : "transparent")};
+  color: ${(props) => (props.active ? "white" : "#64748b")};
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: ${(props) => (props.active ? mainColor : `${mainColor}20`)};
   }
 `;
+
+const SkillsGrid = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+`;
+
+const SkillTag = styled(motion.div)<{ bgColor: string; textColor: string }>`
+  padding: 4px 12px;
+  background: ${(props) => props.bgColor};
+  color: ${(props) => props.textColor};
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  border: 1px solid ${(props) => props.textColor}40; // Using textColor with alpha
+`;
+
+const RightPanel = styled(motion.div)`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    max-width: 600px;
+  }
+`;
+
+const ContentCard = styled.div`
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  flex: 1;
+`;
+
+const ContentTitle = styled.h3`
+  font-size: 24px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+`;
+
+const ContentText = styled.p`
+  color: #475569;
+  line-height: 1.8;
+  font-size: 16px;
+  margin-bottom: 20px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+`;
+
+const Highlight = styled.span`
+  color: ${mainColor};
+  font-weight: 600;
+`;
+
+const circles = [
+  { size: 80, top: "15%", left: "10%", opacity: 0.3 },
+  { size: 120, top: "70%", left: "85%", opacity: 0.4 },
+  { size: 60, top: "30%", left: "90%", opacity: 0.5 },
+  { size: 100, top: "80%", left: "5%", opacity: 0.3 },
+];
+
+const skillsWithColors = [
+  { name: "HTML5", textColor: "#E44D26", bgColor: "#F1652920" },
+  { name: "CSS3", textColor: "#1572B6", bgColor: "#2965f120" },
+  { name: "JavaScript", textColor: "#F0DB4F", bgColor: "#F0DB4F20" },
+  { name: "TypeScript", textColor: "#007ACC", bgColor: "#007ACC20" },
+  { name: "React", textColor: "#61DAFB", bgColor: "#61DAFB20" },
+  { name: "Next.js", textColor: "#333333", bgColor: "#55555520" },
+  { name: "Styled-Components", textColor: "#DB7093", bgColor: "#DB709320" },
+  { name: "Figma", textColor: "#F24E1E", bgColor: "#F24E1E20" },
+  { name: "Git", textColor: "#F1502F", bgColor: "#F1502F20" },
+  { name: "Responsive Design", textColor: "#4A90E2", bgColor: "#4A90E220" },
+];
+
+const experiences = [
+  "프론트엔드 개발 2년차",
+  "React 기반 웹 애플리케이션 개발",
+  "반응형 웹 디자인 구현",
+  "팀 프로젝트 협업 경험",
+  "UI/UX 디자인 이해",
+  "성능 최적화 경험",
+];
+
+export default function AboutMe() {
+  const [activeTab, setActiveTab] = useState("skills");
+  const [rightTab, setRightTab] = useState("intro");
+
+  return (
+    <Container>
+      <FloatingCircles>
+        {circles.map((circle, index) => (
+          <Circle
+            key={index}
+            size={circle.size}
+            top={circle.top}
+            left={circle.left}
+            opacity={circle.opacity}
+            animate={{
+              y: [0, -15, 0],
+              x: [0, 8, 0],
+            }}
+            transition={{
+              duration: 8 + index,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </FloatingCircles>
+
+      <MainContent>
+        <LeftPanel
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <ProfileSection>
+            <ProfileTitle>PROFILE</ProfileTitle>
+            <ProfileSubtitle>Frontend developer</ProfileSubtitle>
+            <ProfileImageContainer />
+          </ProfileSection>
+
+          <TabContainer>
+            <TabButtons>
+              <TabButton
+                active={activeTab === "skills"}
+                onClick={() => setActiveTab("skills")}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Skills
+              </TabButton>
+              <TabButton
+                active={activeTab === "experience"}
+                onClick={() => setActiveTab("experience")}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Experience
+              </TabButton>
+            </TabButtons>
+
+            <AnimatePresence mode="wait">
+              {activeTab === "skills" && (
+                <motion.div
+                  key="skills"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <SkillsGrid>
+                    {skillsWithColors.map((skill, index) => (
+                      <SkillTag
+                        key={skill.name}
+                        bgColor={skill.bgColor}
+                        textColor={skill.textColor}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: index * 0.1 }}
+                        whileHover={{
+                          scale: 1.05,
+                          transition: { duration: 0.1 },
+                        }}
+                      >
+                        {skill.name}
+                      </SkillTag>
+                    ))}
+                  </SkillsGrid>
+                </motion.div>
+              )}
+
+              {activeTab === "experience" && (
+                <motion.div
+                  key="experience"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {experiences.map((exp, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      style={{
+                        padding: "12px 0",
+                        borderBottom:
+                          index < experiences.length - 1
+                            ? `1px solid ${mainColor}20`
+                            : "none",
+                        color: "#475569",
+                        fontSize: "14px",
+                      }}
+                    >
+                      • {exp}
+                    </motion.div>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </TabContainer>
+        </LeftPanel>
+
+        <RightPanel
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+        >
+          <ContentCard>
+            <TabButtons>
+              <TabButton
+                active={rightTab === "intro"}
+                onClick={() => setRightTab("intro")}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <MessageCircle size={16} style={{ marginRight: "8px" }} />
+                자기소개
+              </TabButton>
+              <TabButton
+                active={rightTab === "qa"}
+                onClick={() => setRightTab("qa")}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <HelpCircle size={16} style={{ marginRight: "8px" }} />
+                Q&A
+              </TabButton>
+            </TabButtons>
+
+            <AnimatePresence mode="wait">
+              {rightTab === "intro" && (
+                <motion.div
+                  key="intro"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <ContentTitle>
+                    안녕하세요, 프론트엔드 개발자 신중원입니다.
+                  </ContentTitle>
+                  <ContentText>
+                    사용자 중심의 인터페이스와 깔끔한 코드 구조로 문제를
+                    해결하는 것을 가장 큰 즐거움으로 삼고 있습니다. 디자인
+                    감각과 기술적 구현 사이의 균형을 중요하게 생각하며, 사용자의
+                    경험을 세심하게 관찰하고 개선하는 과정에서 가치를
+                    만들어갑니다.
+                  </ContentText>
+                  <ContentText>
+                    저는 React와 TypeScript를 주축으로 Next.js, Vite,
+                    TailwindCSS 등 최신 기술들을 공부하고있으며며, 컴포넌트
+                    재사용성과 유지보수성을 고려한 코드 작성을 하기위해 노력하고
+                    있습니다. 프로젝트를 진행하면서 협업 툴과 Git 워크플로우를
+                    익혀 팀 내 커뮤니케이션과 개발 효율을 높이기위해
+                    배우고있습니다. 학습과 성장에는 끝이 없다고 믿습니다. 새로운
+                    기술을 빠르게 학습하고 실무에 적용하는 것을 즐겁게 생각하고
+                    있고 , 작은 실험과 반복적인 개선을 통해 더 나은 결과를
+                    만들어 내기위해 노력합니다.
+                    <Highlight>
+                      “기회는 준비된 사람이 잡는다”는 신념으로 매일 코드와
+                      설계를 갈고닦으며, 실제 서비스를 통해
+                    </Highlight>
+                    얻는 경험을 쌓아가고 있습니다.
+                  </ContentText>
+
+                  <ContentText>
+                    앞으로도 더욱 발전해나가면서 배우고 좋은개발자, 성실히
+                    배우고 협업하는 개발자가 되겠습니다.
+                  </ContentText>
+                </motion.div>
+              )}
+
+              {rightTab === "qa" && (
+                <motion.div
+                  key="qa"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <ContentTitle>자주 묻는 질문</ContentTitle>
+                  <ContentText>
+                    <Highlight>
+                      Q. 어떤 기술 스택을 주로 사용하시나요?
+                    </Highlight>
+                    <br />
+                    주로 React + TypeScript 기반으로 개발합니다. Next.js로
+                    SSR/SSG를 적용해 성능을 개선했고, 스타일링은
+                    Styled-Components/Tailwind를 프로젝트 성격에 맞게
+                    사용합니다. 데이터는 React Query로 캐싱하고, 테스트는
+                    Jest/RTL을 기본으로 작성합니다.
+                  </ContentText>
+                  <ContentText>
+                    <Highlight>
+                      Q. 개발할 때 가장 중요하게 생각하는 것은?
+                    </Highlight>
+                    <br />
+                    사용자 경험(UX)과 접근성(a11y): 접근성 기준(ARIA, 키보드
+                    내비게이션, 명확한 대체 텍스트)을 적용해 모든 사용자가 접근
+                    가능한 UI를 만들기위해 노력합니다. 성능 최적화: 코드
+                    스플리팅, lazy loading, 이미지 최적화, 캐싱 전략을 통해 초기
+                    로드와 상호작용 속도를 개선합니다. Lighthouse 지표를
+                    주기적으로 체크합니다. 가독성·유지보수성 있는 코드: 컴포넌트
+                    단일 책임 원칙, 일관된 네이밍, 타입 안전성(TypeScript)을
+                    지켜 코드 리뷰가 쉬운 구조로 작성합니다. 테스트와 자동화:
+                    핵심 로직과 컴포넌트는 단위/통합 테스트로 보호하고, E2E
+                    테스트로 중요한 사용자 흐름을 검증합니다. CI에서
+                    린트·테스트·빌드 단계를 자동화해 배포 안정성을 확보합니다.
+                    협업 태도: 명확한 커밋 메시지, PR 설명, 적극적인 코드 리뷰
+                    참여로 지식 공유와 빠른 피드백을 지향합니다. 모르는 건
+                    숨기지 않고 질문하며, 페어 프로그래밍과 문서화를 통해 팀과
+                    성장합니다.
+                  </ContentText>
+                  <ContentText>
+                    <Highlight>Q. 앞으로의 목표는 무엇인가요?</Highlight>
+                    <br />
+                    A. 단기적으로는 신입 개발자로서 빠르게 현업에 기여하는 것이
+                    목표입니다. 이를 위해 다음을 실천 중입니다. 작은 기능이라도
+                    끝까지 맡아 배포해보기: 요구사항 분석 → 구현 → 테스트 → 배포
+                    → 모니터링 사이클을 직접 경험합니다. 테스트와 CI 문화를
+                    익히기: 테스트 커버리지와 자동화 파이프라인을 통해 신뢰성
+                    있는 코드를 만드는 법을 체득합니다. 팀에서의 커뮤니케이션
+                    스킬 강화: 비기술자와의 의사소통, 문서화, PR로 의도를 명확히
+                    전달하는 연습을 합니다. 중장기적으로는 풀스택 역량을 갖추어
+                    서비스의 기획적·기술적 맥락을 넓게 이해하고 싶습니다.
+                    구체적으로는: 백엔드 기본기(REST, GraphQL, Node.js/Express,
+                    DB 설계) 를 익혀 프론트엔드와 원활히 연동할 수 있게 되고,
+                    클라우드·인프라(배포 자동화, 모니터링, 비용 최적화) 를
+                    이해해 서비스 운영 관점에서도 가치를 제공하고자 합니다.
+                    무엇보다 중요한 건 “배우려는 태도”라고 생각합니다.
+                    신입으로서 빠르게 질문하고 피드백을 흡수하며, 작은 성공을
+                    쌓아 팀에 긍정적인 영향을 주는 개발자가 되는 것이 제
+                    목표입니다.
+                  </ContentText>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </ContentCard>
+        </RightPanel>
+      </MainContent>
+    </Container>
+  );
+}

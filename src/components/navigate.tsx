@@ -1,188 +1,110 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 interface NavArray {
   id: number;
   path: string;
   iconClass: string;
-  classOn: string;
-  classOff: string;
   pageName: string;
 }
 
 export const Navigate = () => {
+  const location = useLocation();
+
   const NavArry: NavArray[] = [
     {
       id: 1,
       path: "/",
       iconClass: "bx bxs-home",
-      classOn: "on ",
-      classOff: "off",
       pageName: "HOME",
     },
     {
       id: 2,
       path: "/aboutme",
       iconClass: "bx bxs-user-pin",
-      classOn: "on ",
-      classOff: "off",
       pageName: "ABOUT",
     },
     {
       id: 3,
       path: "/portfolio",
       iconClass: "bx bxs-book-content",
-      classOn: "on",
-      classOff: "off",
       pageName: "PORTFOLIO",
     },
   ];
 
-  const [focused, setFocused] = useState<number>(1);
-  const handeClick = (num: number) => {
-    if (num) {
-      setFocused(num);
-    }
-  };
-
   return (
-    <NavContainer>
+    <Navigation>
       {NavArry.map((el) => (
-        <LinkStyle
-          key={el.iconClass}
+        <NavButton
+          key={el.id}
           to={el.path}
-          className={focused === el.id ? el.classOn : el.classOff}
-          onClick={() => handeClick(el.id)}
+          className={location.pathname === el.path ? "on" : "off"}
+          active={location.pathname === el.path}
         >
-          <p
-            className={focused === el.id ? el.classOn : el.classOff}
-            style={{ position: "absolute", right: "0", color: "white" }}
-          >
-            {el.pageName}
-          </p>
-          <BxIcons
-            key={el.id}
-            className={el.iconClass}
-            focus={focused}
-          ></BxIcons>
-        </LinkStyle>
+          <p>{el.pageName}</p>
+          <i className={el.iconClass}></i>
+        </NavButton>
       ))}
-    </NavContainer>
+    </Navigation>
   );
 };
 
-const NavContainer = styled.div`
-  display: flex;
-  z-index: 13;
-  flex-direction: column;
+const mainColor = "#195190";
+
+const Navigation = styled.nav`
   position: fixed;
-  background: transperent;
-  border-radius: 10px;
-  right: 20px;
-  top: 35vh;
-  padding-bottom: 7px;
-  &::before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-    border-radius: 20px;
-    background-color: #7b9acc;
-
-    opacity: 0.8;
-  }
-  &::after {
-    border-radius: 20px;
-    content: "";
-    position: absolute;
-    z-index: -3;
-    width: 100%;
-    height: 100%;
-  }
-
-  @media (max-width: 500px) {
-    position: fixed;
-    bottom: 0px;
-    top: 93%;
-    height: 40px;
-    width: 90vw;
-    justify-content: space-evenly;
-    flex-direction: row;
-    margin: 0 auto;
-    opacity: 1;
-    background-color: #7b9acc;
-  }
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 20;
 `;
-const LinkStyle = styled(Link)`
-  padding: 10px;
+
+const NavButton = styled(Link)<{ active?: boolean }>`
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: ${(props) =>
+    props.active ? mainColor : "rgba(255, 255, 255, 0.9)"};
+  color: ${(props) => (props.active ? "white" : "#64748b")};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  position: relative;
 
   p {
-    font-size: 12px;
-    margin-top: 6px;
-    width: 50px;
-    transform: translateX();
-    opacity: 0;
-    transition: all 0.4s;
-  }
-  &.on {
-    color: #195190;
-  }
-  &.off {
-    color: white;
-  }
-
-  &::before {
-    transition: all 0.4s;
-    z-index: -1;
-    content: "";
-    width: 0px;
-    padding-top: 10px;
-    pdding-bottom: 10px;
-    height: 20px;
-    border-radius: 10px 10px;
     position: absolute;
-    right: 0;
-  }
-  &:hover {
+    right: 60px;
     color: #195190;
-    p {
-      transform: translateX(-80px);
-      opacity: 1;
-    }
-    &::before {
-      content: "";
-
-      width: 100px;
-      padding-top: 10px;
-      pdding-bottom: 10px;
-      background-color: #7b9acc;
-      opacity: 1;
-      height: 20px;
-      position: absolute;
-      right: 45px;
-    }
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none; // To prevent hover issues on the text itself
   }
 
-  @media (max-width: 550px) {
+  i {
+    font-size: 24px;
+  }
+
+  &:hover {
+    background: ${mainColor};
     color: white;
-    &:hover {
-      &::after {
-        content: none;
-      }
-      &::before {
-        content: none;
-      }
-      p {
-        display: none;
-      }
+    transform: scale(1.1);
+
+    p {
+      opacity: 1;
     }
   }
-`;
-const BxIcons = styled.i<{ focus: number; key: number }>`
-  vertical-align: bottom;
 
-  @media (max-width: 550px) {
+  &.on {
+    background: ${mainColor};
+    color: white;
   }
 `;
