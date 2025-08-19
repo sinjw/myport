@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, HelpCircle } from "lucide-react";
+import { FloatingCircle } from "../components/circle";
 import profileImage from "../assets/ProfileImage.png";
 const mainColor = "rgb(123, 154, 204)";
 
@@ -10,28 +11,6 @@ const Container = styled.div`
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   position: relative;
   overflow: hidden;
-`;
-
-const FloatingCircles = styled.div`
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-`;
-
-const Circle = styled(motion.div)<{
-  size: number;
-  top: string;
-  left: string;
-  opacity: number;
-}>`
-  position: absolute;
-  width: ${(props) => props.size}px;
-  height: ${(props) => props.size}px;
-  background: ${mainColor};
-  border-radius: 50%;
-  top: ${(props) => props.top};
-  left: ${(props) => props.left};
-  opacity: ${(props) => props.opacity};
 `;
 
 const MainContent = styled.div`
@@ -51,10 +30,10 @@ const MainContent = styled.div`
 `;
 
 const LeftPanel = styled(motion.div)`
-  flex: 0 0 350px;
+  flex: 0 0 300px;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 12px;
 
   @media (max-width: 1024px) {
     flex: 1;
@@ -67,7 +46,7 @@ const ProfileSection = styled.div`
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(20px);
   border-radius: 24px;
-  padding: 32px;
+  padding: 10px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
 `;
@@ -76,27 +55,28 @@ const ProfileTitle = styled.h2`
   font-size: 32px;
   font-weight: 300;
   color: #1e293b;
-  margin-bottom: 8px;
-  font-style: italic;
+  margin-left: 20px;
+  font-family: "Caveat", cursive;
 `;
 
 const ProfileSubtitle = styled.p`
   color: #64748b;
   font-size: 16px;
   margin-bottom: 24px;
+  margin-left: 24px;
   font-style: italic;
 `;
 
 const ProfileImageContainer = styled.div`
-  width: 200px;
-  height: 260px;
+  width: 160px;
+  height: 200px;
   border-radius: 15px;
   background-image: url(${profileImage});
-  background-size: contain;
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat; /* ⬅️ 여기서 설정 */
-  margin: 0 auto 24px;
-  border: 3px solid ${mainColor}30;
+  margin: 0 auto;
+  border: 2px solid #ccc;
   position: relative;
   overflow: hidden;
 `;
@@ -199,13 +179,6 @@ const Highlight = styled.span`
   font-weight: 600;
 `;
 
-const circles = [
-  { size: 80, top: "15%", left: "10%", opacity: 0.3 },
-  { size: 120, top: "70%", left: "85%", opacity: 0.4 },
-  { size: 60, top: "30%", left: "90%", opacity: 0.5 },
-  { size: 100, top: "80%", left: "5%", opacity: 0.3 },
-];
-
 const skillsWithColors = [
   { name: "HTML5", textColor: "#E44D26", bgColor: "#F1652920" },
   { name: "CSS3", textColor: "#1572B6", bgColor: "#2965f120" },
@@ -220,12 +193,12 @@ const skillsWithColors = [
 ];
 
 const experiences = [
-  "프론트엔드 개발 2년차",
-  "React 기반 웹 애플리케이션 개발",
-  "반응형 웹 디자인 구현",
-  "팀 프로젝트 협업 경험",
-  "UI/UX 디자인 이해",
-  "성능 최적화 경험",
+  " React nextjs 웹 애플리케이션 개발",
+  " 반응형 웹 디자인 구현",
+  " 팀 프로젝트 협업 경험",
+  " EZEN 사원으로 근무",
+  " 코드스테이츠 프론트엔드 과정수료",
+  " EZEN UI/UX 웹디자인 과정수료",
 ];
 
 export default function AboutMe() {
@@ -234,26 +207,7 @@ export default function AboutMe() {
 
   return (
     <Container>
-      <FloatingCircles>
-        {circles.map((circle, index) => (
-          <Circle
-            key={index}
-            size={circle.size}
-            top={circle.top}
-            left={circle.left}
-            opacity={circle.opacity}
-            animate={{
-              y: [0, -15, 0],
-              x: [0, 8, 0],
-            }}
-            transition={{
-              duration: 8 + index,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
-      </FloatingCircles>
+      <FloatingCircle />
 
       <MainContent>
         <LeftPanel
