@@ -1,183 +1,16 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, HelpCircle } from "lucide-react";
+import {
+  MessageCircle,
+  HelpCircle,
+  BookOpen,
+  Coffee,
+  MapPin,
+  Calendar,
+} from "lucide-react";
 import { FloatingCircle } from "../components/circle";
 import profileImage from "../assets/ProfileImage.png";
-const mainColor = "rgb(123, 154, 204)";
-
-const Container = styled.div`
-  min-height: 100vh;
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-  position: relative;
-  overflow: hidden;
-`;
-
-const MainContent = styled.div`
-  display: flex;
-  min-height: 90vh;
-  padding: 32px 32px; // Adjusted padding for header
-  gap: 48px;
-  max-width: 1400px;
-  margin: 0 auto;
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    align-items: center;
-    padding: 80px 16px 32px;
-    gap: 32px;
-  }
-`;
-
-const LeftPanel = styled(motion.div)`
-  flex: 0 0 300px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-
-  @media (max-width: 1024px) {
-    flex: 1;
-    width: 100%;
-    max-width: 600px;
-  }
-`;
-
-const ProfileSection = styled.div`
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(20px);
-  border-radius: 24px;
-  padding: 10px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-`;
-
-const ProfileTitle = styled.h2`
-  font-size: 32px;
-  font-weight: 300;
-  color: #1e293b;
-  margin-left: 20px;
-  font-family: "Caveat", cursive;
-`;
-
-const ProfileSubtitle = styled.p`
-  color: #64748b;
-  font-size: 16px;
-  margin-bottom: 24px;
-  margin-left: 24px;
-  font-style: italic;
-`;
-
-const ProfileImageContainer = styled.div`
-  width: 160px;
-  height: 200px;
-  border-radius: 15px;
-  background-image: url(${profileImage});
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat; /* ⬅️ 여기서 설정 */
-  margin: 0 auto;
-  border: 2px solid #ccc;
-  position: relative;
-  overflow: hidden;
-`;
-
-const TabContainer = styled.div`
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(20px);
-  border-radius: 24px;
-  padding: 32px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  flex: 1;
-`;
-
-const TabButtons = styled.div`
-  display: flex;
-  gap: 8px;
-  margin-bottom: 24px;
-`;
-
-const TabButton = styled(motion.button)<{ active: boolean }>`
-  padding: 12px 24px;
-  border: none;
-  border-radius: 12px;
-  background: ${(props) => (props.active ? mainColor : "transparent")};
-  color: ${(props) => (props.active ? "white" : "#64748b")};
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: ${(props) => (props.active ? mainColor : `${mainColor}20`)};
-  }
-`;
-
-const SkillsGrid = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 16px;
-`;
-
-const SkillTag = styled(motion.div)<{ bgColor: string; textColor: string }>`
-  padding: 4px 12px;
-  background: ${(props) => props.bgColor};
-  color: ${(props) => props.textColor};
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 500;
-  text-align: center;
-  border: 1px solid ${(props) => props.textColor}40; // Using textColor with alpha
-`;
-
-const RightPanel = styled(motion.div)`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-
-  @media (max-width: 1024px) {
-    width: 100%;
-    max-width: 600px;
-  }
-`;
-
-const ContentCard = styled.div`
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(20px);
-  border-radius: 24px;
-  padding: 40px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  flex: 1;
-`;
-
-const ContentTitle = styled.h3`
-  font-size: 24px;
-  font-weight: 600;
-  color: #1e293b;
-  margin-bottom: 24px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-`;
-
-const ContentText = styled.p`
-  color: #475569;
-  line-height: 1.8;
-  font-size: 16px;
-  margin-bottom: 20px;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-`;
-
-const Highlight = styled.span`
-  color: ${mainColor};
-  font-weight: 600;
-`;
 
 const skillsWithColors = [
   { name: "HTML5", textColor: "#E44D26", bgColor: "#F1652920" },
@@ -200,7 +33,12 @@ const experiences = [
   " 코드스테이츠 프론트엔드 과정수료",
   " EZEN UI/UX 웹디자인 과정수료",
 ];
-
+const personalInfo = [
+  { icon: Calendar, label: "생년", value: "1994년" },
+  { icon: MapPin, label: "거주지", value: "전주, 대한민국" },
+  { icon: Coffee, label: "취미", value: "독서, 영화감상" },
+  { icon: BookOpen, label: "학습", value: "새로운 기술 탐구" },
+];
 export default function AboutMe() {
   const [activeTab, setActiveTab] = useState("skills");
   const [rightTab, setRightTab] = useState("intro");
@@ -343,34 +181,58 @@ export default function AboutMe() {
                   <ContentTitle>
                     안녕하세요, 프론트엔드 개발자 신중원입니다.
                   </ContentTitle>
-                  <ContentText>
-                    사용자 중심의 인터페이스와 깔끔한 코드 구조로 문제를
-                    해결하는 것을 가장 큰 즐거움으로 삼고 있습니다. 디자인
-                    감각과 기술적 구현 사이의 균형을 중요하게 생각하며, 사용자의
-                    경험을 세심하게 관찰하고 개선하는 과정에서 가치를
-                    만들어갑니다.
-                  </ContentText>
-                  <ContentText>
-                    저는 React와 TypeScript를 주축으로 Next.js, Vite,
-                    TailwindCSS 등 최신 기술들을 공부하고있으며며, 컴포넌트
-                    재사용성과 유지보수성을 고려한 코드 작성을 하기위해 노력하고
-                    있습니다. 프로젝트를 진행하면서 협업 툴과 Git 워크플로우를
-                    익혀 팀 내 커뮤니케이션과 개발 효율을 높이기위해
-                    배우고있습니다. 학습과 성장에는 끝이 없다고 믿습니다. 새로운
-                    기술을 빠르게 학습하고 실무에 적용하는 것을 즐겁게 생각하고
-                    있고 , 작은 실험과 반복적인 개선을 통해 더 나은 결과를
-                    만들어 내기위해 노력합니다.
-                    <Highlight>
-                      “기회는 준비된 사람이 잡는다”는 신념으로 매일 코드와
-                      설계를 갈고닦으며, 실제 서비스를 통해
-                    </Highlight>
-                    얻는 경험을 쌓아가고 있습니다.
-                  </ContentText>
+                  <PersonalInfoGrid>
+                    {personalInfo.map((info, index) => (
+                      <InfoCard
+                        key={index}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        whileHover={{ scale: 1.02 }}
+                      >
+                        <InfoIcon>
+                          <info.icon size={20} />
+                        </InfoIcon>
+                        <InfoContent>
+                          <h4>{info.label}</h4>
+                          <p>{info.value}</p>
+                        </InfoContent>
+                      </InfoCard>
+                    ))}
+                  </PersonalInfoGrid>
+                  <QuoteSection
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    <ContentText>
+                      사용자 중심의 인터페이스와 깔끔한 코드 구조로 문제를
+                      해결하는 방향성으로 노력합니다. 기술적 구현과 사용자의
+                      경험을 세심하게 관찰하고 개선하는 과정에서 가치를
+                      만들어가기위해 노력하고있습니다.
+                    </ContentText>
+                    <ContentText>
+                      저는 React와 TypeScript를 주축으로 Next.js, Vite,
+                      TailwindCSS 등의 기술들을 공부하고있으며, 컴포넌트
+                      재사용성과 유지보수성을 고려한 코드 작성을 하기위해
+                      노력하고 있고, 프로젝트를 진행하면서 협업 툴과 Git
+                      워크플로우를 익혀 팀 내 커뮤니케이션과 개발 효율을
+                      높이기위해 배우고있습니다. 학습과 성장에는 끝이 없다고
+                      믿습니다. 새로운 기술을 빠르게 학습하고 실무에 적용하는
+                      것을 즐겁게 생각하고 있고 , 작은 실험과 반복적인 개선을
+                      통해 더 나은 결과를 만들어 내기위해 노력합니다.
+                      <Highlight>
+                        “기회는 준비된 사람이 잡는다”는 신념으로 매일 코드와
+                        설계를 갈고닦으며, 발전하기 위한 경험을 쌓아가고
+                        있습니다.
+                      </Highlight>
+                    </ContentText>
 
-                  <ContentText>
-                    앞으로도 더욱 발전해나가면서 배우고 좋은개발자, 성실히
-                    배우고 협업하는 개발자가 되겠습니다.
-                  </ContentText>
+                    <ContentText>
+                      앞으로도 더욱 발전해나가면서 배우고 좋은개발자, 성실히
+                      배우고 협업하는 개발자가 되고 싶습니다.
+                    </ContentText>
+                  </QuoteSection>
                 </motion.div>
               )}
 
@@ -389,24 +251,20 @@ export default function AboutMe() {
                     </Highlight>
                     <br />
                     주로 React + TypeScript 기반으로 개발합니다. Next.js로
-                    SSR/SSG를 적용해 성능을 개선했고, 스타일링은
+                    프로젝트 경험이 있고, 스타일링은
                     Styled-Components/Tailwind를 프로젝트 성격에 맞게
-                    사용합니다. 데이터는 React Query로 캐싱하고, 테스트는
-                    Jest/RTL을 기본으로 작성합니다.
+                    사용합니다. 데이터는 React Query로 캐싱합니다
                   </ContentText>
                   <ContentText>
                     <Highlight>
                       Q. 개발할 때 가장 중요하게 생각하는 것은?
                     </Highlight>
                     <br />
-                    사용자 경험(UX)과 접근성(a11y): 접근성 기준(ARIA, 키보드
-                    내비게이션, 명확한 대체 텍스트)을 적용해 모든 사용자가 접근
-                    가능한 UI를 만들기위해 노력합니다. 성능 최적화: 코드
-                    스플리팅, lazy loading, 이미지 최적화, 캐싱 전략을 통해 초기
-                    로드와 상호작용 속도를 개선합니다. Lighthouse 지표를
-                    주기적으로 체크합니다. 가독성·유지보수성 있는 코드: 컴포넌트
-                    단일 책임 원칙, 일관된 네이밍, 타입 안전성(TypeScript)을
-                    지켜 코드 리뷰가 쉬운 구조로 작성합니다. 테스트와 자동화:
+                    사용자 경험과 접근성: 접근성 기준(키보드 내비게이션, 명확한
+                    대체 텍스트)을 적용해 모든 사용자가 접근 가능한 UI를
+                    만들기위해 노력합니다. 가독성·유지보수성 있는 코드: 컴포넌트
+                    단일 책임 원칙, 일관된 네이밍, 타입 안전성을 지켜 코드
+                    리뷰가 쉬운 구조로 작성하기위해 노력합니다. 테스트와 자동화:
                     핵심 로직과 컴포넌트는 단위/통합 테스트로 보호하고, E2E
                     테스트로 중요한 사용자 흐름을 검증합니다. CI에서
                     린트·테스트·빌드 단계를 자동화해 배포 안정성을 확보합니다.
@@ -421,17 +279,17 @@ export default function AboutMe() {
                     A. 단기적으로는 신입 개발자로서 빠르게 현업에 기여하는 것이
                     목표입니다. 이를 위해 다음을 실천 중입니다. 작은 기능이라도
                     끝까지 맡아 배포해보기: 요구사항 분석 → 구현 → 테스트 → 배포
-                    → 모니터링 사이클을 직접 경험합니다. 테스트와 CI 문화를
-                    익히기: 테스트 커버리지와 자동화 파이프라인을 통해 신뢰성
-                    있는 코드를 만드는 법을 체득합니다. 팀에서의 커뮤니케이션
-                    스킬 강화: 비기술자와의 의사소통, 문서화, PR로 의도를 명확히
-                    전달하는 연습을 합니다. 중장기적으로는 풀스택 역량을 갖추어
-                    서비스의 기획적·기술적 맥락을 넓게 이해하고 싶습니다.
-                    구체적으로는: 백엔드 기본기(REST, GraphQL, Node.js/Express,
-                    DB 설계) 를 익혀 프론트엔드와 원활히 연동할 수 있게 되고,
+                    사이클을 직접 경험합니다. 테스트와 CI 문화를 익히기: 테스트
+                    커버리지와 자동화 파이프라인을 통해 신뢰성 있는 코드를
+                    만드는 법을 체득합니다. 팀에서의 커뮤니케이션 스킬 강화:
+                    비기술자와의 의사소통, 문서화로 의도를 명확히 전달하는
+                    연습을 합니다. 중장기적으로는 풀스택 역량을 갖추어 서비스의
+                    기획적·기술적 맥락을 넓게 이해하고 싶습니다. 구체적으로는:
+                    백엔드 기본기(REST, GraphQL, Node.js/Express, DB 설계) 를
+                    익혀 프론트엔드와 원활히 연동할 수 있게 되고,
                     클라우드·인프라(배포 자동화, 모니터링, 비용 최적화) 를
-                    이해해 서비스 운영 관점에서도 가치를 제공하고자 합니다.
-                    무엇보다 중요한 건 “배우려는 태도”라고 생각합니다.
+                    이해해 서비스 운영 관점에서도 가치를 제공하는것이 목표
+                    입니다. 무엇보다 중요한 건 “배우려는 태도”라고 생각합니다.
                     신입으로서 빠르게 질문하고 피드백을 흡수하며, 작은 성공을
                     쌓아 팀에 긍정적인 영향을 주는 개발자가 되는 것이 제
                     목표입니다.
@@ -445,3 +303,234 @@ export default function AboutMe() {
     </Container>
   );
 }
+const mainColor = "rgb(123, 154, 204)";
+
+const Container = styled.div`
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  position: relative;
+  overflow: hidden;
+`;
+
+const MainContent = styled.div`
+  display: flex;
+  min-height: 90vh;
+  padding: 32px 32px; // Adjusted padding for header
+  gap: 48px;
+  max-width: 1400px;
+  margin: 0 auto;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    align-items: center;
+    padding: 80px 16px 32px;
+    gap: 32px;
+  }
+`;
+
+const LeftPanel = styled(motion.div)`
+  flex: 0 0 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  @media (max-width: 1024px) {
+    flex: 1;
+    width: 100%;
+    max-width: 600px;
+  }
+`;
+
+const ProfileSection = styled.div`
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+`;
+
+const ProfileTitle = styled.h2`
+  font-size: 32px;
+  font-weight: 300;
+  color: #1e293b;
+  margin-left: 20px;
+  font-family: "Caveat", cursive;
+`;
+
+const ProfileSubtitle = styled.p`
+  color: #64748b;
+  font-size: 16px;
+  margin-bottom: 24px;
+  margin-left: 24px;
+  font-style: italic;
+`;
+
+const ProfileImageContainer = styled.div`
+  width: 160px;
+  height: 200px;
+  border-radius: 15px;
+  background-image: url(${profileImage});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; /* ⬅️ 여기서 설정 */
+  margin: 0 auto;
+  border: 2px solid #ccc;
+  position: relative;
+  overflow: hidden;
+`;
+
+const TabContainer = styled.div`
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  flex: 1;
+`;
+
+const TabButtons = styled.div`
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+`;
+
+const TabButton = styled(motion.button)<{ active: boolean }>`
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  background: ${(props) => (props.active ? mainColor : "transparent")};
+  color: ${(props) => (props.active ? "white" : "#64748b")};
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: ${(props) => (props.active ? mainColor : `${mainColor}20`)};
+  }
+`;
+
+const SkillsGrid = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+`;
+
+const SkillTag = styled(motion.div)<{ bgColor: string; textColor: string }>`
+  padding: 4px 12px;
+  background: ${(props) => props.bgColor};
+  color: ${(props) => props.textColor};
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  border: 1px solid ${(props) => props.textColor}40; // Using textColor with alpha
+`;
+
+const RightPanel = styled(motion.div)`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    max-width: 600px;
+  }
+`;
+const PersonalInfoGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+`;
+const InfoCard = styled(motion.div)`
+  background: linear-gradient(135deg, ${mainColor}08, ${mainColor}15);
+  border: 1px solid ${mainColor}20;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+`;
+
+const InfoIcon = styled.div`
+  width: 48px;
+  height: 48px;
+  background: ${mainColor}20;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${mainColor};
+`;
+const QuoteSection = styled(motion.div)`
+  background: linear-gradient(135deg, ${mainColor}10, ${mainColor}20);
+  border-left: 4px solid ${mainColor};
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 40px;
+  position: relative;
+
+  &::before {
+    content: '"';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    font-size: 60px;
+    color: ${mainColor}40;
+    font-family: serif;
+  }
+`;
+
+const InfoContent = styled.div`
+  h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 4px;
+  }
+  p {
+    font-size: 16px;
+    color: #475569;
+    font-weight: 500;
+  }
+`;
+const ContentCard = styled.div`
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  flex: 1;
+`;
+
+const ContentTitle = styled.h3`
+  font-size: 24px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+`;
+
+const ContentText = styled.p`
+  color: #475569;
+  line-height: 1.8;
+  font-size: 16px;
+  margin-bottom: 20px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+`;
+
+const Highlight = styled.span`
+  color: ${mainColor};
+  font-weight: 600;
+`;

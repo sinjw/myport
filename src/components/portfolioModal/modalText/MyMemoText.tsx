@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { useState } from "react";
-import MemoScreen1 from "../../../assets/memo1.png";
-import MemoScreen2 from "../../../assets/memo2.png";
-import MemoScreen3 from "../../../assets/memo3.png";
-import MemoScreen4 from "../../../assets/memo4.png";
-import MemoScreen5 from "../../../assets/memo5.png";
+import MemoScreen1 from "../../../assets/memo1.jpg";
+import MemoScreen2 from "../../../assets/memo2.jpg";
+import MemoScreen3 from "../../../assets/memo3.jpg";
+import MemoScreen4 from "../../../assets/memo4.jpg";
+import MemoScreen5 from "../../../assets/memo5.jpg";
 export const MyMemoAppText = () => {
   const [modal, onModal] = useState(0);
   const handleClickIMG = (n: number) => {
@@ -21,7 +21,7 @@ export const MyMemoAppText = () => {
             MyMemoApp은 Expo를 이용해서 어플리케이션의 형식으로 만든 기본적인
             기능들만 사용하는 앱입니다.
             <br /> 과거에 배웠던 엑스포를 활용해서 앱을 만들고 베포하기 까지의
-            과정을 답습해보고싶어서 복잡하기보단 간단하게 만들게되었습니다.{" "}
+            과정을 답습해보고싶어서 복잡하기보단 간단하게 만들게되었습니다.
             <br />
             메모 저장 기능은 AsyncStorage를사용해서 저장 하도록 하였고 캘린더와
             연동시켜서 당일작성한 메모를 캘린더를통해 확인 할 수있는 기능을 구현

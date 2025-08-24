@@ -138,22 +138,27 @@ export const AnimatedProjectModal = ({
                     })}
                 </ImageGalleryContainer>
               </TechStack>
+              <ModalDescription>
+                {selectedProject.fullDescription}
+              </ModalDescription>
 
               <ActionButtons>
-                <a
-                  href={selectedProject.githubLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <ActionButton
-                    variant="primary"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                {selectedProject.webLink !== "" && (
+                  <a
+                    href={selectedProject.githubLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    <ExternalLink size={16} />
-                    라이브 데모
-                  </ActionButton>
-                </a>
+                    <ActionButton
+                      variant="primary"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <ExternalLink size={16} />
+                      web
+                    </ActionButton>
+                  </a>
+                )}
                 <a
                   href={selectedProject.githubLink}
                   target="_blank"
@@ -167,6 +172,12 @@ export const AnimatedProjectModal = ({
                     Github
                   </ActionButton>
                 </a>
+
+                {selectedProject.youtubeLink !== "" && (
+                  <a href={selectedProject.youtubeLink}>
+                    <ActionButton>Youtube</ActionButton>{" "}
+                  </a>
+                )}
               </ActionButtons>
             </ModalBody>
           </ModalContent>
