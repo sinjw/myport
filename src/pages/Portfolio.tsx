@@ -1,10 +1,73 @@
 "use client";
 
 import { useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { motion } from "framer-motion";
 import { AnimatedProjectModal } from "../components/portfolioModal/Modal";
 import { FloatingCircle } from "../components/circle";
+
+import { projects } from "../components/portfolioModal/projectData";
+
+export default function ProjectPage({}) {
+  const [selectedProject, setSelectedProject] = useState<
+    (typeof projects)[0] | null
+  >(null);
+
+  return (
+    <Container>
+      <FloatingCircle />
+      <MainContent>
+        <PageTitle
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          PROJECT
+        </PageTitle>
+
+        <ProjectGrid>
+          {projects.map((project, index) => (
+            <ProjectCard
+              key={project.id}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.6,
+                delay: index * 0.2,
+                ease: "easeOut",
+              }}
+              whileHover={{ y: -8 }}
+              onClick={() => setSelectedProject(project)}
+            >
+              <ProjectImage>
+                <ProjectCardImg src={project.image} />
+              </ProjectImage>
+              <ProjectContent>
+                <div>
+                  <ProjectTitle>{project.title}</ProjectTitle>
+                  <ProjectDescription>{project.description}</ProjectDescription>
+                </div>
+              </ProjectContent>
+              <ProjectTag>{project.type}</ProjectTag>
+              <HoverOverlay
+                initial={{ opacity: 0 }}
+                whileHover={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                자세히보기
+              </HoverOverlay>
+            </ProjectCard>
+          ))}
+        </ProjectGrid>
+      </MainContent>
+
+      <AnimatedProjectModal
+        selectedProject={selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
+    </Container>
+  );
+}
 const mainColor = "rgb(123, 154, 204)";
 
 const Container = styled.div`
@@ -50,7 +113,7 @@ const ProjectCard = styled(motion.div)`
 `;
 
 const ProjectImage = styled.div`
-  width: 300px;
+  width: 100%;
   height: 200px;
   background: linear-gradient(135deg, ${mainColor}40, ${mainColor}60);
   position: relative;
@@ -61,7 +124,12 @@ const ProjectImage = styled.div`
   font-size: 18px;
   font-weight: 500;
 `;
+const ProjectCardImg = styled.img`
+  width: 100%;
+  height: 100%;
 
+  object-fit: cover;
+`;
 const ProjectContent = styled.div`
   padding: 24px;
   height: 100px;
@@ -109,64 +177,3 @@ const HoverOverlay = styled(motion.div)`
   font-weight: 500;
   opacity: 0;
 `;
-
-import { projects } from "../components/portfolioModal/projectData";
-
-export default function ProjectPage({}) {
-  const [selectedProject, setSelectedProject] = useState<
-    (typeof projects)[0] | null
-  >(null);
-
-  return (
-    <Container>
-      <FloatingCircle />
-      <MainContent>
-        <PageTitle
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          PROJECT
-        </PageTitle>
-
-        <ProjectGrid>
-          {projects.map((project, index) => (
-            <ProjectCard
-              key={project.id}
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.6,
-                delay: index * 0.2,
-                ease: "easeOut",
-              }}
-              whileHover={{ y: -8 }}
-              onClick={() => setSelectedProject(project)}
-            >
-              <ProjectImage>{project.image}</ProjectImage>
-              <ProjectContent>
-                <div>
-                  <ProjectTitle>{project.title}</ProjectTitle>
-                  <ProjectDescription>{project.description}</ProjectDescription>
-                </div>
-              </ProjectContent>
-              <ProjectTag>{project.type}</ProjectTag>
-              <HoverOverlay
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
-              >
-                자세히보기
-              </HoverOverlay>
-            </ProjectCard>
-          ))}
-        </ProjectGrid>
-      </MainContent>
-
-      <AnimatedProjectModal
-        selectedProject={selectedProject}
-        onClose={() => setSelectedProject(null)}
-      />
-    </Container>
-  );
-}

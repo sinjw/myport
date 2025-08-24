@@ -1,6 +1,7 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+
 import {
   Github,
   X,
@@ -10,12 +11,180 @@ import {
   ExternalLink,
   Check,
 } from "lucide-react";
-import { Lightbox } from "./Lightbox";
 
+import { ImageBox } from "../portfolioModal/imageBox";
 const mainColor = "rgb(123, 154, 204)";
 
 import { type Project } from "./projectData";
 
+type AnimatedProjectModalProps = {
+  selectedProject: Project | null;
+  onClose: () => void;
+};
+
+export const AnimatedProjectModal = ({
+  selectedProject,
+  onClose,
+}: AnimatedProjectModalProps) => {
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+
+  return (
+    <AnimatePresence>
+      {selectedProject && (
+        <Modal
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onClose}
+        >
+          <ModalContent
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <ModalHeader customStyle={selectedProject?.modalTopStyle}>
+              <div>
+                <ModalTitle>{selectedProject.title}</ModalTitle>
+                <ProjectTag>{selectedProject.type}</ProjectTag>
+              </div>
+              <CloseButton
+                onClick={onClose}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <X size={20} />
+              </CloseButton>
+            </ModalHeader>
+
+            <ModalBody>
+              <ModalDescription>{selectedProject.description}</ModalDescription>
+
+              <ProjectDetails>
+                <DetailItem>
+                  <DetailIcon>
+                    <Calendar size={20} />
+                  </DetailIcon>
+                  <DetailText>
+                    <h4>개발 기간</h4>
+                    <p>{selectedProject.period}</p>
+                  </DetailText>
+                </DetailItem>
+                <DetailItem>
+                  <DetailIcon>
+                    <Users size={20} />
+                  </DetailIcon>
+                  <DetailText>
+                    <h4>팀 구성</h4>
+                    <p>{selectedProject.team}</p>
+                  </DetailText>
+                </DetailItem>
+                <DetailItem>
+                  <DetailIcon>
+                    <Code size={20} />
+                  </DetailIcon>
+                  <DetailText>
+                    <h4>담당 역할</h4>
+                    <p>{selectedProject.role}</p>
+                  </DetailText>
+                </DetailItem>
+              </ProjectDetails>
+
+              <TechStack>
+                <TechTitle>기술 스택</TechTitle>
+                <TechList>
+                  {selectedProject.techStack.map((tech) => (
+                    <TechItem key={tech}>{tech}</TechItem>
+                  ))}
+                </TechList>
+              </TechStack>
+
+              <TechStack>
+                <TechTitle>주요 기능</TechTitle>
+                <FeatureList>
+                  {selectedProject.features.map((feature, index) => (
+                    <FeatureItem key={index}>
+                      <Check size={16} color="#34d399" />
+                      {feature}
+                    </FeatureItem>
+                  ))}
+                </FeatureList>
+              </TechStack>
+
+              <TechStack>
+                <TechTitle>이미지 갤러리</TechTitle>
+                <ImageGalleryContainer>
+                  {selectedProject.galleryImages &&
+                    selectedProject.galleryImages.map((imgSrc, index) => {
+                      const total = selectedProject.galleryImages.length;
+                      const initialAngle = (index - (total - 1) / 2) * 6;
+                      const hoverAngle = (index - (total - 1) / 2) * 15;
+
+                      return (
+                        <GalleryImage
+                          key={index}
+                          src={imgSrc}
+                          alt={`${selectedProject.title} gallery image ${
+                            index + 1
+                          }`}
+                          $angleInitial={`${initialAngle}deg`}
+                          $angleHover={`${hoverAngle}deg`}
+                          style={{ zIndex: index }}
+                          onClick={() => {
+                            setIsLightboxOpen(true);
+                          }}
+                        />
+                      );
+                    })}
+                </ImageGalleryContainer>
+              </TechStack>
+
+              <ActionButtons>
+                <a
+                  href={selectedProject.githubLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <ActionButton
+                    variant="primary"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <ExternalLink size={16} />
+                    라이브 데모
+                  </ActionButton>
+                </a>
+                <a
+                  href={selectedProject.githubLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <ActionButton
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Github size={16} />
+                    Github
+                  </ActionButton>
+                </a>
+              </ActionButtons>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+      )}
+      {isLightboxOpen && selectedProject && (
+        <>
+          <ImageBox
+            images={selectedProject.galleryImages}
+            id={selectedProject.id}
+            isOpen={isLightboxOpen}
+            onClose={() => setIsLightboxOpen(false)}
+          />
+        </>
+      )}
+    </AnimatePresence>
+  );
+};
 const Modal = styled(motion.div)`
   position: fixed;
   inset: 0;
@@ -35,9 +204,20 @@ const ModalContent = styled(motion.div)`
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 `;
 
-const ModalHeader = styled.div`
+const ModalHeader = styled.div<{ customStyle?: string }>`
+  ${(props) =>
+    props.customStyle &&
+    css`
+      ${props.customStyle}
+    `};
   padding: 32px 32px 0;
   display: flex;
   justify-content: space-between;
@@ -68,7 +248,7 @@ const ModalBody = styled.div`
 const ModalTitle = styled.h2`
   font-size: 38px;
   font-weight: 600;
-  color: #1e293b;
+
   margin-bottom: 16px;
   font-family: "Caveat", cursive;
 `;
@@ -233,178 +413,10 @@ const ActionButton = styled(motion.button)<{
 
 const ProjectTag = styled.span`
   padding: 6px 12px;
-  background: rgba(123, 154, 204, 0.2);
-  color: rgb(123, 154, 204);
+  background: rgba(255, 255, 255, 0.2);
+  color: rgb(250, 250, 250);
   border-radius: 12px;
   font-size: 12px;
   font-weight: 500;
-  border: 1px solid rgba(123, 154, 204, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 `;
-
-type AnimatedProjectModalProps = {
-  selectedProject: Project | null;
-  onClose: () => void;
-};
-
-export const AnimatedProjectModal = ({
-  selectedProject,
-  onClose,
-}: AnimatedProjectModalProps) => {
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-  const [currentLightboxIndex, setCurrentLightboxIndex] = useState(0);
-
-  return (
-    <AnimatePresence>
-      {selectedProject && (
-        <Modal
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={onClose}
-        >
-          <ModalContent
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.8, opacity: 0 }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <ModalHeader>
-              <div>
-                <ModalTitle>{selectedProject.title}</ModalTitle>
-                <ProjectTag>{selectedProject.type}</ProjectTag>
-              </div>
-              <CloseButton
-                onClick={onClose}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <X size={20} />
-              </CloseButton>
-            </ModalHeader>
-
-            <ModalBody>
-              <ModalDescription>{selectedProject.description}</ModalDescription>
-
-              <ProjectDetails>
-                <DetailItem>
-                  <DetailIcon>
-                    <Calendar size={20} />
-                  </DetailIcon>
-                  <DetailText>
-                    <h4>개발 기간</h4>
-                    <p>{selectedProject.period}</p>
-                  </DetailText>
-                </DetailItem>
-                <DetailItem>
-                  <DetailIcon>
-                    <Users size={20} />
-                  </DetailIcon>
-                  <DetailText>
-                    <h4>팀 구성</h4>
-                    <p>{selectedProject.team}</p>
-                  </DetailText>
-                </DetailItem>
-                <DetailItem>
-                  <DetailIcon>
-                    <Code size={20} />
-                  </DetailIcon>
-                  <DetailText>
-                    <h4>담당 역할</h4>
-                    <p>{selectedProject.role}</p>
-                  </DetailText>
-                </DetailItem>
-              </ProjectDetails>
-
-              <TechStack>
-                <TechTitle>기술 스택</TechTitle>
-                <TechList>
-                  {selectedProject.techStack.map((tech) => (
-                    <TechItem key={tech}>{tech}</TechItem>
-                  ))}
-                </TechList>
-              </TechStack>
-
-              <TechStack>
-                <TechTitle>주요 기능</TechTitle>
-                <FeatureList>
-                  {selectedProject.features.map((feature, index) => (
-                    <FeatureItem key={index}>
-                      <Check size={16} color="#34d399" />
-                      {feature}
-                    </FeatureItem>
-                  ))}
-                </FeatureList>
-              </TechStack>
-
-              <TechStack>
-                <TechTitle>이미지 갤러리</TechTitle>
-                <ImageGalleryContainer>
-                  {selectedProject.galleryImages &&
-                    selectedProject.galleryImages.map((imgSrc, index) => {
-                      const total = selectedProject.galleryImages.length;
-                      const initialAngle = (index - (total - 1) / 2) * 6;
-                      const hoverAngle = (index - (total - 1) / 2) * 15;
-
-                      return (
-                        <GalleryImage
-                          key={index}
-                          src={imgSrc}
-                          alt={`${selectedProject.title} gallery image ${
-                            index + 1
-                          }`}
-                          $angleInitial={`${initialAngle}deg`}
-                          $angleHover={`${hoverAngle}deg`}
-                          style={{ zIndex: index }}
-                          onClick={() => {
-                            setIsLightboxOpen(true);
-                            setCurrentLightboxIndex(index);
-                          }}
-                        />
-                      );
-                    })}
-                </ImageGalleryContainer>
-              </TechStack>
-
-              <ActionButtons>
-                <a
-                  href={selectedProject.githubLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <ActionButton
-                    variant="primary"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <ExternalLink size={16} />
-                    라이브 데모
-                  </ActionButton>
-                </a>
-                <a
-                  href={selectedProject.githubLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <ActionButton
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Github size={16} />
-                    Github
-                  </ActionButton>
-                </a>
-              </ActionButtons>
-            </ModalBody>
-          </ModalContent>
-        </Modal>
-      )}
-      {isLightboxOpen && selectedProject && (
-        <Lightbox
-          images={selectedProject.galleryImages}
-          startIndex={currentLightboxIndex}
-          isOpen={isLightboxOpen}
-        />
-      )}
-    </AnimatePresence>
-  );
-};
