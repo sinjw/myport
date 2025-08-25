@@ -5,10 +5,9 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { AnimatedProjectModal } from "../components/portfolioModal/Modal";
 import { FloatingCircle } from "../components/circle";
-
 import { projects } from "../components/portfolioModal/projectData";
 
-export default function ProjectPage({}) {
+export default function ProjectPage() {
   const [selectedProject, setSelectedProject] = useState<
     (typeof projects)[0] | null
   >(null);
