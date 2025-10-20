@@ -145,7 +145,7 @@ export const AnimatedProjectModal = ({
               <ActionButtons>
                 {selectedProject.webLink !== "" && (
                   <a
-                    href={selectedProject.githubLink}
+                    href={selectedProject.webLink}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
