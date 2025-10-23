@@ -155,7 +155,7 @@ export const projects = [
     githubLink: "https://github.com/hiperrank01/Frontend_250625",
     youtubeLink: "",
     galleryImages: [ninewinit, ninewinit2, ninewinit3, ninewinit4],
-    teamInfo: ["Team", "web", "3인"],
+    teamInfo: ["Team", "web", "3인(프론트1명,백엔드2명)"],
     imgWrapperStyle: `
       padding: 10px 10px;
       position: absolute;
