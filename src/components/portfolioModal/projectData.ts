@@ -152,7 +152,7 @@ export const projects = [
     type: "web",
     TextComponent: MyMemoAppText,
     webLink: "https://ninewinit.store/",
-    githubLink: "https://github.com/sinjw/MemoApp.git",
+    githubLink: "https://github.com/hiperrank01/Frontend_250625",
     youtubeLink: "",
     galleryImages: [ninewinit, ninewinit2, ninewinit3, ninewinit4],
     teamInfo: ["Team", "web", "3인"],
