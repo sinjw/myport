@@ -1,16 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  MessageCircle,
-  HelpCircle,
-  BookOpen,
-  Coffee,
-  MapPin,
-  Calendar,
-} from "lucide-react";
+import { MessageCircle, HelpCircle, MapPin, Calendar } from "lucide-react";
 import { FloatingCircle } from "../components/circle";
-import profileImage from "../assets/ProfileImage.png";
 
 const skillsWithColors = [
   { name: "HTML5", textColor: "#E44D26", bgColor: "#F1652920" },
@@ -35,9 +27,7 @@ const experiences = [
 ];
 const personalInfo = [
   { icon: Calendar, label: "생년", value: "1994년" },
-  { icon: MapPin, label: "거주지", value: "전주, 대한민국" },
-  { icon: Coffee, label: "취미", value: "독서, 영화감상" },
-  { icon: BookOpen, label: "학습", value: "새로운 기술 탐구" },
+  { icon: MapPin, label: "거주지", value: " 전북 전주시 ,대한민국" },
 ];
 export default function AboutMe() {
   const [activeTab, setActiveTab] = useState("skills");
@@ -56,7 +46,6 @@ export default function AboutMe() {
           <ProfileSection>
             <ProfileTitle>PROFILE</ProfileTitle>
             <ProfileSubtitle>Frontend developer</ProfileSubtitle>
-            <ProfileImageContainer />
           </ProfileSection>
 
           <TabContainer>
@@ -222,9 +211,8 @@ export default function AboutMe() {
                       것을 즐겁게 생각하고 있고 , 작은 실험과 반복적인 개선을
                       통해 더 나은 결과를 만들어 내기위해 노력합니다.
                       <Highlight>
-                        “기회는 준비된 사람이 잡는다”는 신념으로 매일 코드와
-                        설계를 갈고닦으며, 발전하기 위한 경험을 쌓아가고
-                        있습니다.
+                        “기회는 준비된 사람이 잡는다” 라는 생각으로 매일 코딩을
+                        즐기면서 , 발전하기 위한 경험을 쌓아가고 있습니다.
                       </Highlight>
                     </ContentText>
 
@@ -253,7 +241,7 @@ export default function AboutMe() {
                     주로 React + TypeScript 기반으로 개발합니다. Next.js로
                     프로젝트 경험이 있고, 스타일링은
                     Styled-Components/Tailwind를 프로젝트 성격에 맞게
-                    사용합니다. 데이터는 React Query로 캐싱합니다
+                    사용합니다.
                   </ContentText>
                   <ContentText>
                     <Highlight>
@@ -262,16 +250,12 @@ export default function AboutMe() {
                     <br />
                     사용자 경험과 접근성: 접근성 기준(키보드 내비게이션, 명확한
                     대체 텍스트)을 적용해 모든 사용자가 접근 가능한 UI를
-                    만들기위해 노력합니다. 가독성·유지보수성 있는 코드: 컴포넌트
+                    만들기위해 노력합니다. 가독성·유지보수성 있는 코드, 컴포넌트
                     단일 책임 원칙, 일관된 네이밍, 타입 안전성을 지켜 코드
-                    리뷰가 쉬운 구조로 작성하기위해 노력합니다. 테스트와 자동화:
-                    핵심 로직과 컴포넌트는 단위/통합 테스트로 보호하고, E2E
-                    테스트로 중요한 사용자 흐름을 검증합니다. CI에서
-                    린트·테스트·빌드 단계를 자동화해 배포 안정성을 확보합니다.
-                    협업 태도: 명확한 커밋 메시지, PR 설명, 적극적인 코드 리뷰
-                    참여로 지식 공유와 빠른 피드백을 지향합니다. 모르는 건
-                    숨기지 않고 질문하며, 페어 프로그래밍과 문서화를 통해 팀과
-                    성장합니다.
+                    리뷰가 쉬운 구조로 작성하기위해 노력합니다. 협업 태도:
+                    명확한 커밋 메시지, PR 설명, 적극적인 코드 리뷰 참여로 지식
+                    공유와 빠른 피드백을 지향합니다. 모르는 건 숨기지 않고
+                    질문하며 팀과 함께 성장하기위해 노력 합니다.
                   </ContentText>
                   <ContentText>
                     <Highlight>Q. 앞으로의 목표는 무엇인가요?</Highlight>
@@ -364,20 +348,6 @@ const ProfileSubtitle = styled.p`
   margin-bottom: 24px;
   margin-left: 24px;
   font-style: italic;
-`;
-
-const ProfileImageContainer = styled.div`
-  width: 160px;
-  height: 200px;
-  border-radius: 15px;
-  background-image: url(${profileImage});
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat; /* ⬅️ 여기서 설정 */
-  margin: 0 auto;
-  border: 2px solid #ccc;
-  position: relative;
-  overflow: hidden;
 `;
 
 const TabContainer = styled.div`

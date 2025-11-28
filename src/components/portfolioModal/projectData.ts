@@ -100,7 +100,7 @@ export const projects = [
       "개인 포트폴리오를 목적으로 만들어진 사이트입니다.템플릿 소스 나 노션 등 다른 방법을 이용할 수 있지만 개인 사이트를만들고싶었습니다. 아직은 부족한 부분이 많이 있지만 저의 성장과함께 바뀌어나가는 포트폴리오를 만들기위해서 진행했습니다.",
     period: "2025.08 - 2025.08",
     team: "1명 (개인 프로젝트)",
-    role: "프론트엔드드 개발",
+    role: "프론트엔드 개발",
     techStack: ["React", "TypeScript", "Framer Motion", "Styled-Components"],
     features: ["반응형 디자인", "부드러운 페이지 전환", "프로젝트 필터링"],
   },
@@ -155,7 +155,7 @@ export const projects = [
     githubLink: "https://github.com/hiperrank01/Frontend_250625",
     youtubeLink: "",
     galleryImages: [ninewinit, ninewinit2, ninewinit3, ninewinit4],
-    teamInfo: ["Team", "web", "3인(프론트1명,백엔드2명)"],
+    teamInfo: ["Team", "web", "2인(프론트1명,백엔드1명)"],
     imgWrapperStyle: `
       padding: 10px 10px;
       position: absolute;
@@ -174,7 +174,7 @@ export const projects = [
     fullDescription:
       "데이터 분석 기반 매출 및 매체별 데이터 분석 마케팅 전략 전문 광고대행 서비스입니다",
     period: "2025.06 -",
-    team: "3명 (팀 프로젝트)",
+    team: "2명 (프론트1명,백엔드1명)",
     role: "프론트엔드 개발",
     techStack: ["Nextjs", "React-query", "tailwindcss"],
     features: ["상품/키워드분석", "보고서 자동화"],

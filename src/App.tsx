@@ -5,11 +5,11 @@ import AboutMe from "./pages/AboutMe.tsx";
 import PortFolio from "./pages/Portfolio.tsx";
 import { Navigate } from "./components/navigate.tsx";
 import { motion } from "framer-motion";
-import { AnimatePresence } from "framer-motion"; // AnimatePresence를 import 해야 합니다.
+import { AnimatePresence } from "framer-motion";
 import "./index.css";
 
 function App() {
-  const location = useLocation(); // useLocation 훅은 함수 컴포넌트 내부에 위치시켜야 합니다.
+  const location = useLocation();
 
   const transitionVariants = {
     initail: {
