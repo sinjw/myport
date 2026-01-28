@@ -24,6 +24,7 @@ const experiences = [
   " EZEN 사원으로 근무",
   " 코드스테이츠 프론트엔드 과정수료",
   " EZEN UI/UX 웹디자인 과정수료",
+  " GOGUEME 프로젝트 개발 참여",
 ];
 const personalInfo = [
   { icon: Calendar, label: "생년", value: "1994년" },
@@ -238,7 +239,7 @@ export default function AboutMe() {
                       Q. 어떤 기술 스택을 주로 사용하시나요?
                     </Highlight>
                     <br />
-                    주로 React + TypeScript 기반으로 개발합니다. Next.js로
+                    주로 React + TypeScript 기반으로 개발합니다. Next.js
                     프로젝트 경험이 있고, 스타일링은
                     Styled-Components/Tailwind를 프로젝트 성격에 맞게
                     사용합니다.
@@ -250,12 +251,12 @@ export default function AboutMe() {
                     <br />
                     사용자 경험과 접근성: 접근성 기준(키보드 내비게이션, 명확한
                     대체 텍스트)을 적용해 모든 사용자가 접근 가능한 UI를
-                    만들기위해 노력합니다. 가독성·유지보수성 있는 코드, 컴포넌트
-                    단일 책임 원칙, 일관된 네이밍, 타입 안전성을 지켜 코드
-                    리뷰가 쉬운 구조로 작성하기위해 노력합니다. 협업 태도:
-                    명확한 커밋 메시지, PR 설명, 적극적인 코드 리뷰 참여로 지식
-                    공유와 빠른 피드백을 지향합니다. 모르는 건 숨기지 않고
-                    질문하며 팀과 함께 성장하기위해 노력 합니다.
+                    만들기위해 노력합니다. 가독성·유지보수성 있는 코드, 일관된
+                    네이밍, 타입 안전성을 지켜 코드 리뷰가 쉬운 구조로
+                    작성하기위해 노력합니다. 협업 태도: 명확한 커밋 메시지, PR
+                    설명, 적극적인 코드 리뷰 참여로 지식 공유와 빠른 피드백을
+                    지향합니다. 모르는 건 숨기지 않고 질문하며 팀과 함께
+                    성장하기위해 노력 합니다.
                   </ContentText>
                   <ContentText>
                     <Highlight>Q. 앞으로의 목표는 무엇인가요?</Highlight>

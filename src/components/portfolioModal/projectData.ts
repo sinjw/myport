@@ -13,6 +13,7 @@ import ninewinit from "../../assets/ninewinit.png";
 import ninewinit2 from "../../assets/ninewinit2.png";
 import ninewinit3 from "../../assets/ninewinit3.png";
 import ninewinit4 from "../../assets/ninewinit4.png";
+import gogumeIMG from "../../assets/ic_logo_txt.svg";
 import stock2 from "../../assets/stock2.png";
 import stock3 from "../../assets/stock3.png";
 import stock4 from "../../assets/stock4.png";
@@ -144,6 +145,7 @@ export const projects = [
       "이미지 저장",
     ],
   },
+
   {
     id: 4,
     title: "ninewinit",
@@ -178,6 +180,41 @@ export const projects = [
     role: "프론트엔드 개발",
     techStack: ["Nextjs", "React-query", "tailwindcss"],
     features: ["상품/키워드분석", "보고서 자동화"],
+  },
+  {
+    id: 5,
+    title: "GOGUME",
+    image: gogumeIMG,
+    description: "쇼핑몰 사이트",
+    type: "web/app",
+    TextComponent: MyMemoAppText,
+    webLink: "",
+    githubLink: "",
+    youtubeLink: "",
+    galleryImages: [],
+    teamInfo: ["Team", "web", "5인(프론트2명,백엔드3명)"],
+    imgWrapperStyle: `
+      padding: 10px 10px;
+      position: absolute;
+      background-color: #f3f3f3;
+      top: 240px;
+      width: 26%;
+      left: 36%;
+      border: 1px solid#ccc;
+      border-radius: 20px 20px;
+    `,
+    modalTopStyle: `
+      background:linear-gradient(rgb(32, 32, 32), rgb(87, 87, 87));
+      height:100px;
+      color:white;
+    `,
+    fullDescription:
+      "아직 출시되지 않은 사이트 입니다 출시 후 추가 예정입니다. 사이트전체를 관리하는 관리자페이지를 작업하였습니다.",
+    period: "2026.12 -",
+    team: "5명 (프론트2명,백엔드3명)",
+    role: "프론트엔드 개발",
+    techStack: ["Nextjs", "React-query", "tailwindcss"],
+    features: ["쇼핑몰", "관리자 페이지"],
   },
 ];
 
